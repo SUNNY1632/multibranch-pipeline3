@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Identify and Deploy') {
+            steps {
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        sh './deploy-master.sh'
+                    } else {
+                        sh 'echo "This pipeline is configured only for the master branch. Current branch: ${env.BRANCH_NAME}"'
+                    }
+                }
+            }
+        }
+    }
+}
